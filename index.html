@@ -1,177 +1,76 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Método Jarvis — Seu Exército de Agentes de IA</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0f; color: #e0e0e0; line-height: 1.6; }
-        .hero { background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #0a0a0f 100%); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem; position: relative; overflow: hidden; }
-        .hero::before { content: ''; position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, rgba(0,150,255,0.08) 0%, transparent 70%); top: -200px; right: -200px; }
-        .hero::after { content: ''; position: absolute; width: 400px; height: 400px; background: radial-gradient(circle, rgba(255,0,100,0.05) 0%, transparent 70%); bottom: -100px; left: -100px; }
-        .badge { display: inline-block; background: rgba(0,150,255,0.15); border: 1px solid rgba(0,150,255,0.3); color: #60a5fa; padding: 0.5rem 1.2rem; border-radius: 50px; font-size: 0.85rem; margin-bottom: 2rem; letter-spacing: 1px; }
-        h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800; background: linear-gradient(135deg, #60a5fa, #a78bfa, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1.5rem; line-height: 1.1; }
-        .subtitle { font-size: clamp(1.1rem, 2vw, 1.4rem); color: #94a3b8; max-width: 700px; margin-bottom: 2rem; font-weight: 300; }
-        .highlight-box { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 2rem; max-width: 600px; margin: 2rem auto; backdrop-filter: blur(10px); }
-        .highlight-box p { color: #cbd5e1; font-size: 1.1rem; }
-        .highlight-box strong { color: #fbbf24; }
-        .cta-button { display: inline-block; background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: white; padding: 1.2rem 3rem; border-radius: 50px; font-size: 1.2rem; font-weight: 600; text-decoration: none; transition: all 0.3s; margin-top: 1.5rem; border: none; cursor: pointer; }
-        .cta-button:hover { transform: translateY(-3px); box-shadow: 0 20px 40px rgba(59,130,246,0.3); }
-        .trust { margin-top: 3rem; color: #64748b; font-size: 0.85rem; }
-        section { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
-        h2 { font-size: 2.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 1rem; text-align: center; }
-        .section-sub { text-align: center; color: #94a3b8; margin-bottom: 3rem; font-size: 1.1rem; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
-        .card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 2rem; transition: all 0.3s; }
-        .card:hover { border-color: rgba(59,130,246,0.3); transform: translateY(-2px); }
-        .card-icon { font-size: 2rem; margin-bottom: 1rem; }
-        .card h3 { color: #f1f5f9; margin-bottom: 0.8rem; font-size: 1.2rem; }
-        .card p { color: #94a3b8; font-size: 0.95rem; }
-        .steps { list-style: none; counter-reset: step; }
-        .steps li { counter-increment: step; padding: 1.5rem; border-left: 2px solid rgba(59,130,246,0.3); margin-bottom: 1rem; position: relative; }
-        .steps li::before { content: counter(step); position: absolute; left: -14px; top: 50%; transform: translateY(-50%); background: #3b82f6; color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; }
-        .steps li strong { color: #f1f5f9; display: block; margin-bottom: 0.3rem; }
-        .steps li span { color: #94a3b8; font-size: 0.95rem; }
-        .price-box { background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(139,92,246,0.1)); border: 1px solid rgba(139,92,246,0.2); border-radius: 24px; padding: 3rem; text-align: center; max-width: 500px; margin: 3rem auto; }
-        .price { font-size: 3.5rem; font-weight: 800; color: #fbbf24; }
-        .price span { font-size: 1.2rem; color: #94a3b8; }
-        .price-sub { color: #64748b; margin-top: 0.5rem; font-size: 0.95rem; }
-        .footer { text-align: center; padding: 3rem; color: #475569; font-size: 0.85rem; border-top: 1px solid rgba(255,255,255,0.05); }
-        .footer strong { color: #94a3b8; }
-        @media (max-width: 600px) { .hero { padding: 1.5rem; } .price-box { padding: 2rem; } }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Area do Operador — Metodo Jarvis</title>
+<style>
+:root{--bg:#0b0d10;--card:#141922;--line:#232a34;--txt:#eef1f5;--mut:#9aa4b2;--acc:#39d98a;--font:'Segoe UI',system-ui,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font);background:var(--bg);color:var(--txt);line-height:1.6}
+.wrap{max-width:640px;margin:0 auto;padding:40px 20px 60px}
+header{text-align:center;margin-bottom:36px}
+h1{font-size:30px;font-weight:800;margin-bottom:6px}
+.sub{color:var(--mut);font-size:14px}
+.cards{display:flex;flex-direction:column;gap:10px}
+.card{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);padding:16px;border-radius:12px;text-decoration:none}
+.card:hover{border-color:var(--acc)}
+.pendente{opacity:.5;pointer-events:none}
+.num{background:var(--acc);color:var(--bg);width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0}
+.num-off{background:var(--line);color:var(--mut);width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0}
+.tit{font-size:15px;font-weight:700;margin-bottom:2px}
+.status{font-size:12px;color:var(--mut)}
+.card:hover .tit{color:var(--acc)}
+.footer{text-align:center;color:var(--mut);font-size:12px;padding:30px 0;margin-top:40px;border-top:1px solid var(--line)}
+</style>
 </head>
 <body>
-    <div class="hero">
-        <div class="badge">⚡ Lançamento em Breve</div>
-        <h1>Método Jarvis</h1>
-        <p class="subtitle">Construa seu próprio exército de agentes de IA que trabalha 24 horas por dia — enquanto você dorme, estuda ou procrastina.</p>
-        <div class="highlight-box">
-            <p>💡 <strong>Você não precisa ser disciplinado.</strong><br>Você precisa de um sistema que funcione sem você.</p>
-        </div>
-        <a href="#inscrever" class="cta-button">🚀 Quero ser avisado do lançamento</a>
-        <p class="trust">✅ Sem risco · Acesso vitalício · Suporte direto</p>
-    </div>
-
-    <section id="problema">
-        <h2>O problema que todo mundo vive</h2>
-        <p class="section-sub">Você já tentou ganhar dinheiro na internet. Mas algo sempre atrapalha.</p>
-        <div class="grid">
-            <div class="card">
-                <div class="card-icon">⏰</div>
-                <h3>Falta de Tempo</h3>
-                <p>Trabalha o dia todo, chega em casa exausto e não sobra energia pra construir o negócio dos sonhos.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">😫</div>
-                <h3>Procrastinação</h3>
-                <p>Quando finalmente tem tempo, a mente trava. Você sabe o que fazer, mas não consegue começar.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">🤯</div>
-                <h3>Complexidade</h3>
-                <p>Tecnologia demais, ferramentas demais, informação demais. Você não sabe por onde começar.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">🔁</div>
-                <h3>Começa e Para</h3>
-                <p>Já começou vários projetos. Comprou cursos, montou planilhas, mas nunca viu resultado. A rotina vence.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="solucao" style="background: rgba(255,255,255,0.02); border-radius: 24px;">
-        <h2>A solução que funciona</h2>
-        <p class="section-sub">O Método Jarvis não é mais um curso de motivação. É um sistema real que você configura uma vez e ele roda sozinho.</p>
-        <div class="grid">
-            <div class="card">
-                <div class="card-icon">🤖</div>
-                <h3>1. Seu Agente Pessoal</h3>
-                <p>Configure seu primeiro assistente de IA em 30 minutos. Ele entende seu negócio e começa a trabalhar imediatamente.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">🔄</div>
-                <h3>2. Funil Automático</h3>
-                <p>Landing page que capta leads, WhatsApp que responde clientes, email que entrega o produto. Tudo automático.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">📈</div>
-                <h3>3. Conteúdo Infinito</h3>
-                <p>Seu agente cria posts, roteiros e textos para você. Nunca mais vai ficar sem conteúdo pra postar.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">💰</div>
-                <h3>4. Renda Recorrente</h3>
-                <p>Enquanto seu sistema trabalha 24/7, você só aparece pra aprovar e receber. Resultado real, sem esforço heroico.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="como-funciona">
-        <h2>Como funciona</h2>
-        <p class="section-sub">5 Protocolos diretos ao ponto. Do zero ao sistema rodando.</p>
-        <ol class="steps">
-            <li><strong>Protocolo 1 — O problema não é você, é o sistema</strong><span>Por que força de vontade falha e como construir um sistema que não depende de disciplina.</span></li>
-            <li><strong>Protocolo 2 — Ative seu agente</strong><span>Passo a passo para criar seu primeiro agente de IA que trabalha 24 horas por dia.</span></li>
-            <li><strong>Protocolo 3 — O funil autônomo</strong><span>Landing page, WhatsApp automático e entrega — o motor de vendas funcionando sozinho.</span></li>
-            <li><strong>Protocolo 4 — Conteúdo infinito</strong><span>Como seu agente cria posts, roteiros e textos de vendas para você todos os dias.</span></li>
-            <li><strong>Protocolo 5 — Primeiro faturamento</strong><span>Case real: como eu fiz, quanto gastei, quanto ganhei e como você repete o processo.</span></li>
-        </ol>
-    </section>
-
-    <section id="para-quem">
-        <h2>Para quem é</h2>
-        <p class="section-sub">O Método Jarvis foi desenhado para pessoas como você.</p>
-        <div class="grid">
-            <div class="card">
-                <div class="card-icon">👨‍💻</div>
-                <h3>Quem trabalha o dia todo</h3>
-                <p>CLT, autônomo, pai/mãe de família. Tem 30 minutos por dia, no máximo.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">📱</div>
-                <h3>Quem já tentou e não conseguiu</h3>
-                <p>Já comprou cursos, assistiu conteúdo, mas nunca viu resultado. A culpa não é sua — é do método.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">🧠</div>
-                <h3>Quem procrastina e se cobra</h3>
-                <p>Você sabe que tem potencial, mas a execução trava. O sistema resolve isso.</p>
-            </div>
-            <div class="card">
-                <div class="card-icon">🚀</div>
-                <h3>Quem quer resultado de verdade</h3>
-                <p>Cansou de promessa vazia. Quer um método que entrega dinheiro real na conta.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="preco" style="background: rgba(255,255,255,0.02); border-radius: 24px;">
-        <h2>Investimento</h2>
-        <p class="section-sub">Menos que uma pizza por mês. Retorno que paga o curso no primeiro cliente.</p>
-        <div class="price-box">
-            <div class="price">R$ 49,<span>90</span></div>
-            <p style="color:#94a3b8; margin: 0.5rem 0;">ou 6x de R$ 9,90</p>
-            <p class="price-sub">✅ Acesso vitalício · Suporte direto no WhatsApp · Atualizações gratuitas · 7 dias de garantia</p>
-            <a href="#inscrever" class="cta-button">🔥 Garantir minha vaga</a>
-        </div>
-    </section>
-
-    <section id="inscrever">
-        <h2>Quer ser avisado do lançamento?</h2>
-        <p class="section-sub">As primeiras 100 vagas terão um brinde especial. Deixa seu contato abaixo.</p>
-        <div style="max-width: 400px; margin: 2rem auto;">
-            <input type="text" placeholder="Seu nome" style="width:100%; padding:1rem; border-radius:12px; border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.05); color:white; font-size:1rem; margin-bottom:1rem;">
-            <input type="email" placeholder="Seu melhor email" style="width:100%; padding:1rem; border-radius:12px; border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.05); color:white; font-size:1rem; margin-bottom:1rem;">
-            <button class="cta-button" style="width:100%;">📩 Me avise do lançamento</button>
-        </div>
-    </section>
-
-    <div class="footer">
-        <p>🦇 <strong>Alfred</strong> · Sistema Operacional Pessoal do Josué Carvalho</p>
-        <p>🤖 Método Jarvis — Construa Seu Próprio Assistente de IA</p>
-        <p style="margin-top:0.5rem;">© 2026 · Todos os direitos reservados</p>
-    </div>
+<div class="wrap">
+<header>
+<h1>Area do Operador</h1>
+<p class="sub">Seus 5 Protocolos para construir seu proprio assistente de IA.</p>
+</header>
+<div class="cards">
+    <a class="card pendente">
+      <div class="num-off">P1</div>
+      <div class="corpo">
+        <div class="tit">O Problema Nao E Voce, E o Sistema</div>
+        <div class="status">Em producao</div>
+      </div>
+    </a>
+    <a class="card pendente">
+      <div class="num-off">P2</div>
+      <div class="corpo">
+        <div class="tit">Ative Seu Agente</div>
+        <div class="status">Em producao</div>
+      </div>
+    </a>
+    <a class="card pendente">
+      <div class="num-off">P3</div>
+      <div class="corpo">
+        <div class="tit">O Funil Autonomo</div>
+        <div class="status">Em producao</div>
+      </div>
+    </a>
+    <a class="card pendente">
+      <div class="num-off">P4</div>
+      <div class="corpo">
+        <div class="tit">Conteudo Infinito</div>
+        <div class="status">Em producao</div>
+      </div>
+    </a>
+    <a class="card pendente">
+      <div class="num-off">P5</div>
+      <div class="corpo">
+        <div class="tit">Primeiro Faturamento</div>
+        <div class="status">Em producao</div>
+      </div>
+    </a>
+</div>
+<div class="footer">
+<p>Alfred — General de Operacoes</p>
+<p>© 2026 · Metodo Jarvis</p>
+</div>
+</div>
 </body>
 </html>
